@@ -1,0 +1,83 @@
+package org.server;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
+
+public class endpoint {
+    requestProcess getEndpointHandler, postEndpointHandler, putEndpointHandler, deleteEndpointHandler;
+    endpoint(requestProcess reqHandler,requestType method){
+        ControllerFlow.takeLog("endpoint:Constructor");
+        ControllerFlow.takeLog("\tendpoint:"+method);
+        switch (method){
+            case GET -> getEndpointHandler = reqHandler;
+            case POST -> postEndpointHandler = reqHandler;
+            case PUT -> putEndpointHandler = reqHandler;
+            case DELETE -> deleteEndpointHandler = reqHandler;
+        }
+    }
+
+    public void addMethod(prerequestHandler<Object,Object> reqHandler,requestType method){
+        ControllerFlow.takeLog("endpoint:addMethod");
+        switch (method){
+            case GET -> {
+                if(getEndpointHandler !=null){
+                    throw new alreadyCreated("GET");
+                }
+                getEndpointHandler = reqHandler;
+
+            }
+            case POST -> {
+                if(postEndpointHandler !=null){
+                    throw new alreadyCreated("POST");
+                }
+                postEndpointHandler = reqHandler;
+            }
+            case PUT -> {
+                if(putEndpointHandler !=null){
+                    throw new alreadyCreated("PUT");
+                }
+                putEndpointHandler = reqHandler;
+            }
+            case DELETE -> {
+                if(deleteEndpointHandler !=null){
+                    throw new alreadyCreated("DELETE");
+                }
+                deleteEndpointHandler = reqHandler;
+            }
+        }
+    }
+    public  void execute(requestType method, inputData data, PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+       ControllerFlow.takeLog("endpoint:execute");
+        switch (method){
+            case GET -> this.get(data,out);
+            case POST -> this.post(data,out);
+            case PUT -> this.put(data,out);
+            case DELETE -> this.delete(data,out);
+        }
+    }
+    void get(inputData data, PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+      ControllerFlow.takeLog("endpoint:get");
+       if(getEndpointHandler !=null){
+           getEndpointHandler.execute(data,out);
+       }
+    }
+    void post(inputData data,PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+       ControllerFlow.takeLog("endpoint:post");
+        if(postEndpointHandler !=null){
+            postEndpointHandler.execute(data,out);
+        }
+    }
+    void put(inputData data,PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+       ControllerFlow.takeLog("endpoint:put");
+        if(putEndpointHandler !=null){
+            putEndpointHandler.execute(data,out);
+        }
+    }
+    void delete(inputData data,PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+       ControllerFlow.takeLog("endpoint:delete");
+        if(deleteEndpointHandler !=null){
+            deleteEndpointHandler.execute(data,out);
+        }
+    }
+}
