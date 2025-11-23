@@ -14,23 +14,14 @@ public  class respondFile extends response{
          respond("index.html",output);
      }
     static void PrintContentType(PrintWriter out,String ext){
-         if(ext.equals("html")){
-             out.println("Content-Type:text/html");
-         }else if(ext.equals("js")){
-             out.println("Content-Type:application/javascript");
-         }else if(ext.equals("css")){
-             out.println("Content-Type:text/css");
-         } else if(ext.equals("png")){
-             out.println("Content-Type:image/png");
-         }else if(ext.equals("jpg")){
-             out.println("Content-Type:image/jpeg");
-         }else if(ext.equals("jpeg")){
-             out.println("Content-Type:image/jpeg");
-         }else if(ext.equals("gif")){
-             out.println("Content-Type:image/gif");
-         }else{
-             out.println("Content-Type:text/html");
-         }
+        switch (ext) {
+            case "js" -> out.println("Content-Type:application/javascript");
+            case "css" -> out.println("Content-Type:text/css");
+            case "png" -> out.println("Content-Type:image/png");
+            case "jpg", "jpeg" -> out.println("Content-Type:image/jpeg");
+            case "gif" -> out.println("Content-Type:image/gif");
+            default -> out.println("Content-Type:text/html");
+        }
     }
     static void respond(String subpath,PrintWriter output)  throws IOException {
         ControllerFlow.takeLog("RespondFile:respond");
