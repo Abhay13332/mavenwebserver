@@ -1,4 +1,6 @@
-package org.server;
+package org.server.endpoint;
+
+import org.server.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,9 +15,9 @@ class alreadyCreated extends RuntimeException {
 
 
 public class endpoints {
-    HashMap<String,endpoint > endpointrequestHandlers ;
-    ArrayList<specialEndpoints> endpoints  ;
-    endpoints(String mode){
+   public HashMap<String, endpoint> endpointrequestHandlers ;
+    public ArrayList<specialEndpoints> endpoints  ;
+    public endpoints(String mode){
         ControllerFlow.takeLog("endpoints:Constructor:mode:"+mode);
         endpointrequestHandlers = new HashMap<>();
         endpoints = new ArrayList<>();
@@ -29,13 +31,13 @@ public class endpoints {
 
     }
 
-    void createEndpoint(String endpoint,endpoint endpointHandler){
+    public void createEndpoint(String endpoint,endpoint endpointHandler){
         ControllerFlow.takeLog("endpoints:createEndpoint:"+endpoint);
         endpointrequestHandlers.put(endpoint,endpointHandler);
 
 
     }
-    void executeEndpoint(inputData data, PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void executeEndpoint(inputData data, PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         ControllerFlow.takeLog("endpoints:executeEndpoint");
         ControllerFlow.takeLog("endpoints:executeEndpoint:check for special endpoints");
              ControllerFlow.takeLog("end" +data.endpoint,true);

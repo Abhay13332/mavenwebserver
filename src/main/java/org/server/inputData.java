@@ -3,15 +3,16 @@ package org.server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.function.Consumer;
 
 public class inputData {
     HashMap<String,String> headers;
-    requestType method;
-     String endpoint;
+    public requestType method;
+     public String endpoint;
      String content;
      HashMap<String,String> queries;
 
-  public   inputData(BufferedReader in) throws IOException {
+  public   inputData(BufferedReader in) throws IOException, NullBufferInputException {
         headers=new HashMap<>();
         queries=new HashMap<>();
         headersparse(in);
@@ -85,10 +86,13 @@ public class inputData {
     }
 
     private void methodparse(String method){}
-    private void headersparse(BufferedReader in) throws IOException {
+    private void headersparse(BufferedReader in) throws IOException, NullBufferInputException {
         String text=in.readLine();
+
+
+
         if(text==null){
-            return;
+
         }
         ControllerFlow.takeLog(text,true);
         endpointparse(text);

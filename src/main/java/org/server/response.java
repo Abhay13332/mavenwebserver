@@ -1,8 +1,6 @@
 package org.server;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import javax.xml.crypto.Data;
+import javax.swing.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +8,7 @@ import java.util.HashMap;
 import java.util.TimeZone;
 
 public abstract class response{
+   protected abstract void respond(interMediateData Data, PrintWriter out) throws IOException;
 
     static HashMap<Integer,String> codesstart;
 
@@ -35,7 +34,7 @@ public abstract class response{
 
 
     }
-    void setDefault(interMediateData Data) throws IOException {
+   static void setDefault(interMediateData Data) throws IOException {
         ControllerFlow.takeLog("resObj:setDefault");
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MM yyyy | HH:mm:ss");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
@@ -50,29 +49,38 @@ public abstract class response{
         Data.headers.putIfAbsent(("Cache-Control"),"public, max-age=0");
         Data.headers.putIfAbsent("Server","Abhay custom Server aaja khelle custom custom custom custom");
     }
-    void start(int StatusCode,interMediateData Data,PrintWriter output) throws IOException{
+    static void start(int StatusCode,interMediateData Data,PrintWriter output) throws IOException{
         ControllerFlow.takeLog("resObj:start");
+        ControllerFlow.takeLog(StatusCode);
+
+
         output.println(codesstart.get(StatusCode));
         headerPrint(Data,output);
     }
-    protected void JSONSend(int StatusCode, interMediateData Data, PrintWriter output) throws IOException {
+    protected static void JSONSend(int StatusCode, interMediateData Data, PrintWriter output) throws IOException {
        ControllerFlow.takeLog("resObj:JSONSend");
         JSONDATA jsonData=(JSONDATA) Data;
+        Data.headers.put("Content-Type ","application/json");
         String jsonSerialize=jsonData.toJSON();
-        IO.println(jsonSerialize);
-        Data.headers.put("Content-Length",String.valueOf( jsonSerialize.length()));
+        ControllerFlow.takeLog(jsonSerialize);
+        Data.headers.put("Content-Length ",String.valueOf( jsonSerialize.length()));
         start(StatusCode,Data,output);
-        output.println(jsonSerialize);
+
+        IO.println(jsonSerialize);
+        output.print(jsonSerialize);
+        output.flush();
 
     }
-    void headerPrint(interMediateData Data,PrintWriter output) throws IOException{
+
+    static void headerPrint(interMediateData Data,PrintWriter output) throws IOException{
         ControllerFlow.takeLog("resObj:headerPrint");
         for(String key : Data.headers.keySet()){
             output.println(key + " : " + Data.headers.get(key));
+            ControllerFlow.takeLog(key + " : " + Data.headers.get(key));
+
         }
         output.println();
     }
-   protected abstract void respond(interMediateData Data, PrintWriter out) throws IOException;
 
 
  }

@@ -19,6 +19,9 @@ public class JSONDATA<T> extends interMediateData{
         body=init;
     }
     public String toJSON() throws JsonProcessingException {
+        if(body instanceof String){
+            return (String) body;
+        }
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(body);
 

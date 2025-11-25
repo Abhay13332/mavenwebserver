@@ -1,25 +1,14 @@
 package org.webserver;
 
 import org.server.*;
-import static org.webserver.Main.person;
+import org.server.jsonserver.jsonApp;
+
 import java.lang.reflect.InvocationTargetException;
 import java.net.*;
 import java.io.*;
 
 
-class processperson implements requestHandler<person,person>{
 
-
-    @Override
-    public Pair<person,person> run(reqObj<person> req, resObj<person> res) throws IOException {
-        person reqBody=req.getJSON();
-        person resBody=res.getJSON();
-        IO.println("runn");
-        resBody.age=reqBody.age+1;
-        resBody.name="sdf";
-        return new Pair<person,person>(req,res);
-    }
-}
 class responseperson extends response{
 
     @Override
@@ -34,24 +23,28 @@ public class Main{
 public static class person {
     public int age;
     public String name;
+    public person(int age,String name){
+        this.age=age;
+        this.name=name;
+    }
 }
 
 
 
-    void main() throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
-        ServerSocket server = new ServerSocket(8080);
-        ControllerFlow app=new ControllerFlow("webserver");
-        Class<person> obj=person.class;
-        prerequestHandler<person,person> pr=new prerequestHandler<>(person.class,person.class,new responseperson());
-        requestHandler<person,person> intermed=new processperson();
-        pr.addHandler(intermed);
+    void main() throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, NullBufferInputException, ClientObjectInitException, InterruptedException {
 
-        app.addEndpoint("home",app.createEndpoint( pr,requestType.POST));
+        jsonApp app=new jsonApp();
+        app.get("hi",(req,res)->{
+            res.json(new person(45,"assdf"));
+        });
+        app.get("hello",(req,res)->{
+            person reqBody=req.tojson(person.class);
+            res.json(new person(45,"hello"));
+        });
+        app.listen(8080);
 
-        while(true){
-            app.handleRequest(server);
-        }
 
     }
 }
+
