@@ -47,7 +47,7 @@ public abstract class response{
         Data.headers.putIfAbsent("Referrer-Policy","no-referrer");
         Data.headers.putIfAbsent("Permissions-Policy","geolocation=(), camera=()");
         Data.headers.putIfAbsent(("Cache-Control"),"public, max-age=0");
-        Data.headers.putIfAbsent("Server","Abhay custom Server aaja khelle custom custom custom custom");
+        Data.headers.putIfAbsent("Server","java_webserver/abhay");
         Data.headers.putIfAbsent("Connection","close");
     }
     static void setDefault(HashMap<String,String> headers)  {
@@ -63,7 +63,7 @@ public abstract class response{
         headers.putIfAbsent("Referrer-Policy","no-referrer");
         headers.putIfAbsent("Permissions-Policy","geolocation=(), camera=()");
         headers.putIfAbsent(("Cache-Control"),"public, max-age=0");
-        headers.putIfAbsent("Server","Abhay custom Server aaja khelle custom custom custom custom");
+        headers.putIfAbsent("Server","java_webserver/abhay");
         headers.putIfAbsent("Connection","close");
     }
     static void start(int StatusCode,interMediateData Data,PrintWriterwithStream output) throws IOException{
@@ -92,8 +92,8 @@ public abstract class response{
     static void headerPrint(interMediateData Data,PrintWriterwithStream output) throws IOException{
         ControllerFlow.takeLog("resObj:headerPrint");
         for(String key : Data.headers.keySet()){
-            output.println(key + " : " + Data.headers.get(key));
-            ControllerFlow.takeLog(key + " : " + Data.headers.get(key));
+            output.println(key + ": " + Data.headers.get(key));
+            ControllerFlow.takeLog(key + ": " + Data.headers.get(key));
 
         }
         output.println();

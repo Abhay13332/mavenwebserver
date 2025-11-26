@@ -11,7 +11,7 @@ import java.net.Socket;
 public class ControllerFlow {
     endpoints endpoints;
 
-    public static boolean logs=false;
+    public static boolean logs=true;
     public static boolean logsObject=true;
     ControllerFlow(endpoints endpoints){
         this.endpoints=endpoints;

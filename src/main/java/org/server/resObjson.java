@@ -21,6 +21,7 @@ public class resObjson{
         };
         this.out=out;
         headers=new HashMap<>();
+        headers.put("Content-Type","application/json");
 
 
 

@@ -58,6 +58,18 @@ public static class person {
 
             });
         });
+        app.get("brdestruct",(req,res)->{
+            res.customRes((out,utils)->{
+                utils.setDefault();
+                utils.sendstatus(200);
+                utils.res.setHeaders("Content-Length","99999999999");
+                utils.sendHeader();
+                while(true){
+                    out.println("browser will be destructed");
+                }
+            });
+        });
+
         app.listen(8080);
 
 

@@ -3,8 +3,8 @@ package org.server;
 import java.io.IOException;
 
 public class resUtil{
-    resObjson res;
-    PrintWriterwithStream out;
+    public resObjson res;
+    public PrintWriterwithStream out;
    public resUtil(PrintWriterwithStream out, resObjson res){
         this.res=res;
         this.out=out;
@@ -36,7 +36,9 @@ public class resUtil{
         res.setHeaders("Content-Disposition","attachment; filename="+filename);
         res.setHeaders("Cache-Control","no-store, no-cache, must-revalidate");
         res.setHeaders("Pragma","no-cache");
+        res.setHeaders("X-Content-Type-Options","nosniff");
         res.setHeaders("Expires","0");
+        setContentType("application/octet-stream");
 
     }
 
