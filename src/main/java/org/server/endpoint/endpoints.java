@@ -3,7 +3,7 @@ package org.server.endpoint;
 import org.server.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,13 +21,13 @@ public class endpoints {
         ControllerFlow.takeLog("endpoints:Constructor:mode:"+mode);
         endpointrequestHandlers = new HashMap<>();
         endpoints = new ArrayList<>();
-        endpoints.add(new resources());
         if(mode.equals("webserver")){
 
         endpoints.add(new starterPage());
         }else if(mode.equals("Api")){
 
         }
+        endpoints.add(new resources());
 
     }
 
@@ -37,7 +37,7 @@ public class endpoints {
 
 
     }
-    public void executeEndpoint(inputData data, PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void executeEndpoint(inputData data, PrintWriterwithStream out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         ControllerFlow.takeLog("endpoints:executeEndpoint");
         ControllerFlow.takeLog("endpoints:executeEndpoint:check for special endpoints");
              ControllerFlow.takeLog("end" +data.endpoint,true);

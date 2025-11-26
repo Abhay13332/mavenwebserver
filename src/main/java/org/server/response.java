@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.TimeZone;
 
 public abstract class response{
-   protected abstract void respond(interMediateData Data, PrintWriter out) throws IOException;
+   protected abstract void respond(interMediateData Data, PrintWriterwithStream out) throws IOException;
 
     static HashMap<Integer,String> codesstart;
 
@@ -48,8 +48,9 @@ public abstract class response{
         Data.headers.putIfAbsent("Permissions-Policy","geolocation=(), camera=()");
         Data.headers.putIfAbsent(("Cache-Control"),"public, max-age=0");
         Data.headers.putIfAbsent("Server","Abhay custom Server aaja khelle custom custom custom custom");
+        Data.headers.putIfAbsent("Connection","close");
     }
-    static void start(int StatusCode,interMediateData Data,PrintWriter output) throws IOException{
+    static void start(int StatusCode,interMediateData Data,PrintWriterwithStream output) throws IOException{
         ControllerFlow.takeLog("resObj:start");
         ControllerFlow.takeLog(StatusCode);
 
@@ -57,7 +58,7 @@ public abstract class response{
         output.println(codesstart.get(StatusCode));
         headerPrint(Data,output);
     }
-    protected static void JSONSend(int StatusCode, interMediateData Data, PrintWriter output) throws IOException {
+    protected static void JSONSend(int StatusCode, interMediateData Data, PrintWriterwithStream output) throws IOException {
        ControllerFlow.takeLog("resObj:JSONSend");
         JSONDATA jsonData=(JSONDATA) Data;
         Data.headers.put("Content-Type ","application/json");
@@ -72,7 +73,7 @@ public abstract class response{
 
     }
 
-    static void headerPrint(interMediateData Data,PrintWriter output) throws IOException{
+    static void headerPrint(interMediateData Data,PrintWriterwithStream output) throws IOException{
         ControllerFlow.takeLog("resObj:headerPrint");
         for(String key : Data.headers.keySet()){
             output.println(key + " : " + Data.headers.get(key));

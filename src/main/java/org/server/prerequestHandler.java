@@ -1,7 +1,7 @@
 package org.server;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class prerequestHandler<T,U> implements requestProcess {
    }
 
 
-    public void execute(inputData data, PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void execute(inputData data, PrintWriterwithStream out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         IO.println("entering prerequestHandler");
        reqObj<T> req;resObj<U> resp;
        if(typereq!=null){

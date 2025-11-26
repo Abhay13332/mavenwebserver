@@ -88,8 +88,8 @@ public class ControllerFlow {
        if(stream==null){
            throw  new ClientObjectInitException("stream is null");
        }
-
-        PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(client.getOutputStream())), true);
+        OutputStream clos=client.getOutputStream();
+        PrintWriterwithStream out = new PrintWriterwithStream(new BufferedWriter(new OutputStreamWriter(clos)), true,clos);
         BufferedReader in = new BufferedReader(new InputStreamReader(stream));
         return new ClientObj(in,out,client);
 

@@ -3,18 +3,17 @@ package org.server;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 
 public class resObjson{
     HashMap<String,String> headers;
     response respond;
-    PrintWriter out;
+    PrintWriterwithStream out;
     int status=200;
-    public resObjson(PrintWriter out){
+    public resObjson(PrintWriterwithStream out){
         respond =new response() {
             @Override
-            protected void respond(interMediateData Data, PrintWriter out) throws IOException {
+            protected void respond(interMediateData Data, PrintWriterwithStream out) throws IOException {
                 response.setDefault(Data);
                 JSONSend(status,Data,out);
 

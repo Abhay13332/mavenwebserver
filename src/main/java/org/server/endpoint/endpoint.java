@@ -3,7 +3,7 @@ package org.server.endpoint;
 import org.server.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import org.server.PrintWriterwithStream;
 import java.lang.reflect.InvocationTargetException;
 
 public class endpoint {
@@ -49,7 +49,7 @@ public class endpoint {
             }
         }
     }
-    public  void execute(requestType method, inputData data, PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public  void execute(requestType method, inputData data, PrintWriterwithStream out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
        ControllerFlow.takeLog("endpoint:execute");
         switch (method){
             case GET -> this.get(data,out);
@@ -58,25 +58,25 @@ public class endpoint {
             case DELETE -> this.delete(data,out);
         }
     }
-    public  void get(inputData data, PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public  void get(inputData data, PrintWriterwithStream out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
       ControllerFlow.takeLog("endpoint:get");
        if(getEndpointHandler !=null){
            getEndpointHandler.execute(data,out);
        }
     }
-    public void post(inputData data,PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void post(inputData data,PrintWriterwithStream out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
        ControllerFlow.takeLog("endpoint:post");
         if(postEndpointHandler !=null){
             postEndpointHandler.execute(data,out);
         }
     }
-    public void put(inputData data,PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void put(inputData data,PrintWriterwithStream out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
        ControllerFlow.takeLog("endpoint:put");
         if(putEndpointHandler !=null){
             putEndpointHandler.execute(data,out);
         }
     }
-    public  void delete(inputData data,PrintWriter out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public  void delete(inputData data,PrintWriterwithStream out) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
        ControllerFlow.takeLog("endpoint:delete");
         if(deleteEndpointHandler !=null){
             deleteEndpointHandler.execute(data,out);

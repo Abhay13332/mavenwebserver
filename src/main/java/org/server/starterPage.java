@@ -1,14 +1,14 @@
 package org.server;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import org.server.PrintWriterwithStream;
 
 public class starterPage implements specialEndpoints{
     @Override
-    public boolean checkandrun(String endpoint, inputData data, PrintWriter out) throws IOException {
+    public boolean checkandrun(String endpoint, inputData data, PrintWriterwithStream out) throws IOException {
         ControllerFlow.takeLog("startPage:checkandrun");
-
-        if(endpoint.equals("")|| endpoint.equals("index.html")){
+       IO.println("end->"+endpoint+"<-end");
+        if(endpoint==null || endpoint.isEmpty() || endpoint.equals("index.html")){
         respondFile.respond("index.html",out);
         return true;
      }else{

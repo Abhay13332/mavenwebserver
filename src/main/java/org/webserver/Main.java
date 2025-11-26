@@ -4,15 +4,13 @@ import org.server.*;
 import org.server.jsonserver.jsonApp;
 
 import java.lang.reflect.InvocationTargetException;
-import java.net.*;
 import java.io.*;
-
 
 
 class responseperson extends response{
 
     @Override
-    public void respond(interMediateData Data, PrintWriter out) throws IOException {
+    public void respond(interMediateData Data, PrintWriterwithStream out) throws IOException {
 
         JSONSend(200,Data,out);
 
@@ -27,6 +25,8 @@ public static class person {
         this.age=age;
         this.name=name;
     }
+    public person(){
+    }
 }
 
 
@@ -38,8 +38,12 @@ public static class person {
         app.get("hi",(req,res)->{
             res.json(new person(45,"assdf"));
         });
+        app.get(".well-known/appspecific/com.chrome.devtools.json",(req,res)->{
+            res.json("{}");
+        });
         app.get("hello",(req,res)->{
             person reqBody=req.tojson(person.class);
+
             res.json(new person(45,"hello"));
         });
         app.listen(8080);
