@@ -5,6 +5,7 @@ import org.server.jsonserver.jsonApp;
 
 import java.lang.reflect.InvocationTargetException;
 import java.io.*;
+import java.nio.file.Files;
 
 
 class responseperson extends response{
@@ -45,6 +46,17 @@ public static class person {
             person reqBody=req.tojson(person.class);
 
             res.json(new person(45,"hello"));
+        });
+        app.get("something",(req,res)->{
+            res.customRes((out,utils)->{
+                utils.setDefault();
+                utils.setToDownload("icon16.png");
+                utils.sendstatus(200);
+                utils.sendHeader();
+                res.setHeaders("Connection","keep-alive");
+                Files.copy((new File("public/favicon/icon16.png")).toPath(), out.outputStream);
+
+            });
         });
         app.listen(8080);
 
