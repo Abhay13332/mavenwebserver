@@ -1,6 +1,5 @@
 package org.server;
 
-import javax.swing.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,14 +76,26 @@ public abstract class response{
     protected static void JSONSend(int StatusCode, interMediateData Data, PrintWriterwithStream output) throws IOException {
        ControllerFlow.takeLog("resObj:JSONSend");
         JSONDATA jsonData=(JSONDATA) Data;
-        Data.headers.put("Content-Type ","application/json");
+        Data.headers.put("Content-Type","application/json");
         String jsonSerialize=jsonData.toJSON();
         ControllerFlow.takeLog(jsonSerialize);
         Data.headers.put("Content-Length ",String.valueOf( jsonSerialize.length()));
         start(StatusCode,Data,output);
 
         IO.println(jsonSerialize);
-        output.print(jsonSerialize);
+        output.println(jsonSerialize);
+
+
+    }
+    protected static void TextSend(int statusCode,interMediateData Data, PrintWriterwithStream output) throws IOException {
+        ControllerFlow.takeLog("resObj:TextSend");
+        textHTML textdata=(textHTML) Data;
+
+        textdata.headers.put("Content-Type","text/html");
+        textdata.headers.put("Content-Length",""+textdata.getBody().length());
+        start(statusCode,textdata,output);
+        IO.println(textdata.getBody());
+        output.print(textdata.getBody());
         output.flush();
 
     }

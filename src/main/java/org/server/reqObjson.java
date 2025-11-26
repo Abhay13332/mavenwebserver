@@ -6,10 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 
 public class reqObjson{
-   HashMap<String,String> headers;
-   HashMap<String,String> queries;
-   requestType method;
-   String endpoint,hostname,useragent;
+   public HashMap<String,String> headers;
+   public HashMap<String,String> queries;
+   public requestType method;
+   public String endpoint,hostname,useragent;
    private final String body;
 
 

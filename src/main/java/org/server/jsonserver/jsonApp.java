@@ -39,6 +39,7 @@ public class jsonApp {
             server = new ServerSocket(port);
         server.setReuseAddress(true);
         while(true){
+
             app.handleRequest(server);
         }
 

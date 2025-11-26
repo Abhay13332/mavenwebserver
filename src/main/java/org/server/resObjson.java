@@ -14,13 +14,13 @@ public class resObjson{
         respond =new response() {
             @Override
             protected void respond(interMediateData Data, PrintWriterwithStream out) throws IOException {
-                response.setDefault(Data);
                 JSONSend(status,Data,out);
 
             }
         };
         this.out=out;
         headers=new HashMap<>();
+        response.setDefault(headers);
         headers.put("Content-Type","application/json");
 
 
@@ -30,8 +30,8 @@ public class resObjson{
         headers.put(key,value);
     }
     public void send(String text) throws IOException {
-        interMediateData Data=new JSONDATA<>(headers,text);
-       respond.respond(Data,out);
+        interMediateData Data=new textHTML(headers,text);
+        response.TextSend(status,Data,out);
     }
     public void json(String text) throws IOException {
         respond.respond(new JSONDATA<>(headers,text), out);
@@ -39,6 +39,8 @@ public class resObjson{
     public void customRes(runnableResponse res) throws IOException {
         res.respond( out,new resUtil(out,this));
     }
+
+
     public <T>void json(T obj) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String val=mapper.writeValueAsString(obj);

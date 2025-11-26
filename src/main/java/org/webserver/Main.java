@@ -58,15 +58,15 @@ public static class person {
 
             });
         });
+        app.get("custom-greeting",(req,res)->{
+                res.send("<div style=\"background: linear-gradient(90deg,rgba(50, 159, 201, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%); height:40px; width:300px;margin-left:500px;padding:35px; border-radius:20px;\">Welcome to our custom webserver "+req.queries.get("name")+" !</div>");
+        });
         app.get("brdestruct",(req,res)->{
             res.customRes((out,utils)->{
                 utils.setDefault();
                 utils.sendstatus(200);
-                utils.res.setHeaders("Content-Length","99999999999");
                 utils.sendHeader();
-                while(true){
-                    out.println("browser will be destructed");
-                }
+
             });
         });
 
