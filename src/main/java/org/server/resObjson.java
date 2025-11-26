@@ -35,6 +35,9 @@ public class resObjson{
     public void json(String text) throws IOException {
         respond.respond(new JSONDATA<>(headers,text), out);
     }
+    public void customRes(runnableResponse res) throws IOException {
+        res.respond( out,new resUtil(out,this));
+    }
     public <T>void json(T obj) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String val=mapper.writeValueAsString(obj);

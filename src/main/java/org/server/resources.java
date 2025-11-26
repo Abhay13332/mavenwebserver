@@ -12,7 +12,7 @@ public class resources implements specialEndpoints{
     public boolean checkandrun(String endpoint, inputData data, PrintWriterwithStream out) throws IOException {
         ControllerFlow.takeLog("resource:checkandrun");
         if( Files.exists(Path.of((System.getProperty("user.dir")),"/public/",endpoint)) ) {
-           respondFile.respond(endpoint,out);
+           respondFile.respond(endpoint,out,data.headers.get("Range"));
            return true;
 
         }

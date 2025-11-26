@@ -50,6 +50,22 @@ public abstract class response{
         Data.headers.putIfAbsent("Server","Abhay custom Server aaja khelle custom custom custom custom");
         Data.headers.putIfAbsent("Connection","close");
     }
+    static void setDefault(HashMap<String,String> headers)  {
+        ControllerFlow.takeLog("resObj:setDefault");
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MM yyyy | HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
+        String responedate = sdf.format(new Date());
+        headers.putIfAbsent("Date", responedate);
+        headers.putIfAbsent("Content-Security-Policy"," default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'");
+        headers.putIfAbsent("X-Frame-Options","DENY");
+        headers.putIfAbsent("X-XSS-Protection","1; mode=block");
+        headers.putIfAbsent("X-Content-Type-Options","nosniff");
+        headers.putIfAbsent("Referrer-Policy","no-referrer");
+        headers.putIfAbsent("Permissions-Policy","geolocation=(), camera=()");
+        headers.putIfAbsent(("Cache-Control"),"public, max-age=0");
+        headers.putIfAbsent("Server","Abhay custom Server aaja khelle custom custom custom custom");
+        headers.putIfAbsent("Connection","close");
+    }
     static void start(int StatusCode,interMediateData Data,PrintWriterwithStream output) throws IOException{
         ControllerFlow.takeLog("resObj:start");
         ControllerFlow.takeLog(StatusCode);
